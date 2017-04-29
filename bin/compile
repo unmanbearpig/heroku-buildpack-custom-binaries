@@ -56,7 +56,7 @@ class CustomBinaries
     manifest.each do |bin_name, url|
       pid = Process.spawn(
         "curl -L --silent #{ url } | " \
-        "tar x -z -C #{ @install_dir } --transform=s/.*/#{ bin_name }/"
+        "gunzip > #{ @install_dir.join(bin_name) }"
       )
       processes[pid] = bin_name
       puts "       Downloading and Extracting #{ bin_name } from #{ url }..."
